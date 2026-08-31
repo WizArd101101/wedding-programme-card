@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding Ceremony of Bruno & Antoinette</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        olive: {
+                            50: '#f5f7f4',
+                            100: '#e5ebe3',
+                            600: '#4d6949',
+                            700: '#3d543a',
+                            800: '#2d3f2b',
+                            900: '#1e2b1d',
+                        },
+                        dustyrose: {
+                            50: '#fdf7f7',
+                            100: '#f9ebeb',
+                            200: '#f3d6d7',
+                            300: '#e7b6b8',
+                            400: '#d99497',
+                            500: '#c57477',
+                            600: '#b15b5f',
+                            700: '#964448',
+                            800: '#7a3336',
+                        },
+                        onion: {
+                            100: '#f6eff2',
+                            300: '#d9beca',
+                            600: '#8c4e68',
+                            700: '#723b53',
+                            800: '#582b3f',
+                        },
+                        gold: {
+                            400: '#dfb76c',
+                            500: '#c89d47',
+                            600: '#a37e33',
+                        },
+                        cream: '#FAF7F2',
+                        parchment: '#F3EDE2'
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        garamond: ['Cormorant Garamond', 'serif'],
+                        script: ['Great Vibes', 'cursive'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #121811;
+            color: #2d3f2b;
+            font-family: 'Cormorant Garamond', serif;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .gold-leaf-border {
+            border: 2px solid #dfb76c;
+            outline: 1px solid #c89d47;
+            outline-offset: -6px;
+        }
+
+        .card-shadow {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .tab-btn.active {
+            background-color: #b15b5f;
+            color: #FAF7F2;
+            border-color: #dfb76c;
+            box-shadow: 0 4px 12px rgba(177, 91, 95, 0.35);
+        }
+
+        /* Print setup */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                padding: 0 !important;
+            }
+            .print-page {
+                box-shadow: none !important;
+                margin: 0 auto !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                border: 1px solid #dfb76c !important;
+                page-break-after: always;
+            }
+            .print-container {
+                padding: 0 !important;
+            }
+        }
+
+        .ornament-line {
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+        .ornament-line::before,
+        .ornament-line::after {
+            content: '';
+            flex: 1;
+            border-bottom: 2px solid #d99497;
+            opacity: 0.75;
+        }
+        .ornament-line:not(:empty)::before {
+            margin-right: .75em;
+        }
+        .ornament-line:not(:empty)::after {
+            margin-left: .75em;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-6 px-3 sm:px-6 md:py-12 flex flex-col items-center bg-gradient-to-br from-[#181315] via-[#121811] to-[#1d1216]">
+
+    <!-- Top Action Toolbar (No Print) -->
+    <header class="no-print w-full max-w-4xl bg-olive-900/90 backdrop-blur-md text-cream p-4 rounded-2xl mb-8 border border-dustyrose-400/40 shadow-2xl flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-full bg-dustyrose-700 flex items-center justify-center border border-gold-400 shadow-md">
+                <i class="fa-solid font-script text-xl text-cream">B&A</i>
+            </div>
+            <div>
+                <h1 class="font-serif text-lg font-semibold tracking-wide text-dustyrose-200">Wedding Programme Card</h1>
+                <p class="text-xs text-dustyrose-300 font-sans">Bruno Kanyiri & Antoinette Kanubala</p>
+            </div>
+        </div>
+
+        <!-- View Controls / Tabs -->
+        <div class="flex flex-wrap items-center gap-2">
+            <button onclick="switchTab('full')" id="tab-full" class="tab-btn active px-3.5 py-1.5 text-xs font-sans rounded-lg border border-dustyrose-400/30 transition-all duration-300 hover:bg-dustyrose-600 hover:text-white">
+                <i class="fa-solid font-sans text-xs mr-1">📄</i> Complete Card
+            </button>
+            <button onclick="switchTab('mass')" id="tab-mass" class="tab-btn px-3.5 py-1.5 text-xs font-sans bg-olive-900/60 text-dustyrose-100 rounded-lg border border-dustyrose-400/30 transition-all duration-300 hover:bg-dustyrose-600 hover:text-white">
+                <i class="fa-solid font-sans text-xs mr-1">⛪</i> Holy Mass
+            </button>
+            <button onclick="switchTab('photos')" id="tab-photos" class="tab-btn px-3.5 py-1.5 text-xs font-sans bg-olive-900/60 text-dustyrose-100 rounded-lg border border-dustyrose-400/30 transition-all duration-300 hover:bg-dustyrose-600 hover:text-white">
+                <i class="fa-solid font-sans text-xs mr-1">📷</i> Photos
+            </button>
+            <button onclick="switchTab('reception')" id="tab-reception" class="tab-btn px-3.5 py-1.5 text-xs font-sans bg-olive-900/60 text-dustyrose-100 rounded-lg border border-dustyrose-400/30 transition-all duration-300 hover:bg-dustyrose-600 hover:text-white">
+                <i class="fa-solid font-sans text-xs mr-1">🥂</i> Reception
+            </button>
+            <button onclick="window.print()" class="bg-dustyrose-500 hover:bg-dustyrose-600 text-cream font-sans text-xs font-semibold px-4 py-1.5 rounded-lg transition-all flex items-center gap-1.5 shadow-md border border-gold-400/50">
+                <i class="fa-solid fa-print"></i> Print Card
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN PROGRAMME CARD CONTAINER -->
+    <main class="print-container w-full max-w-4xl transition-all duration-500">
+
+        <!-- Card Outer Frame -->
+        <div id="programme-card" class="print-page bg-cream text-olive-900 rounded-xl p-6 sm:p-12 relative card-shadow border-4 border-dustyrose-700 my-2 overflow-hidden">
+            
+            <!-- Gold & Dusty Rose inner lining border -->
+            <div class="gold-leaf-border p-4 sm:p-8 relative z-10 bg-gradient-to-b from-dustyrose-50/50 via-cream/90 to-dustyrose-50/40 backdrop-blur-[2px] rounded-lg">
+                
+                <!-- Corner SVG Botanical Elements -->
+                <div class="absolute top-0 left-0 w-28 h-28 sm:w-40 sm:h-40 pointer-events-none opacity-90">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 5 Q 35 15, 45 45 Q 15 35, 5 5 Z" fill="#b15b5f" opacity="0.85"/>
+                        <path d="M5 5 Q 15 35, 25 65 Q 40 40, 5 5 Z" fill="#d99497" opacity="0.8"/>
+                        <path d="M5 5 Q 50 10, 75 35 Q 35 30, 5 5 Z" fill="#3d543a" opacity="0.75"/>
+                        <circle cx="22" cy="22" r="5" fill="#e7b6b8"/>
+                        <circle cx="38" cy="16" r="3.5" fill="#dfb76c"/>
+                        <circle cx="16" cy="38" r="4" fill="#7a3336"/>
+                    </svg>
+                </div>
+                <div class="absolute top-0 right-0 w-28 h-28 sm:w-40 sm:h-40 pointer-events-none opacity-90 transform scale-x-[-1]">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 5 Q 35 15, 45 45 Q 15 35, 5 5 Z" fill="#b15b5f" opacity="0.85"/>
+                        <path d="M5 5 Q 15 35, 25 65 Q 40 40, 5 5 Z" fill="#d99497" opacity="0.8"/>
+                        <path d="M5 5 Q 50 10, 75 35 Q 35 30, 5 5 Z" fill="#3d543a" opacity="0.75"/>
+                        <circle cx="22" cy="22" r="5" fill="#e7b6b8"/>
+                        <circle cx="38" cy="16" r="3.5" fill="#dfb76c"/>
+                        <circle cx="16" cy="38" r="4" fill="#7a3336"/>
+                    </svg>
+                </div>
+
+                <!-- HEADER SECTION -->
+                <section class="text-center mb-10 pt-4">
+                    <p class="font-sans text-xs sm:text-sm uppercase tracking-[0.3em] text-dustyrose-700 font-bold mb-2">
+                        The Wedding Ceremony Of
+                    </p>
+                    
+                    <h1 class="font-script text-5xl sm:text-7xl text-olive-800 my-2 leading-tight">
+                        Bruno Kanyiri
+                    </h1>
+                    
+                    <div class="flex items-center justify-center space-x-4 my-1">
+                        <span class="h-[1.5px] w-14 bg-dustyrose-400"></span>
+                        <span class="font-script text-4xl text-dustyrose-600">&</span>
+                        <span class="h-[1.5px] w-14 bg-dustyrose-400"></span>
+                    </div>
+
+                    <h1 class="font-script text-5xl sm:text-7xl text-olive-800 my-2 leading-tight">
+                        Antoinette Kanubala
+                    </h1>
+
+                    <div class="mt-6 pt-4 border-t-2 border-dustyrose-300/80 inline-block px-8 bg-dustyrose-100/50 rounded-full border">
+                        <p class="font-serif text-lg sm:text-xl text-dustyrose-800 font-semibold py-1">
+                            Saturday, 5th September 2026 <span class="text-gold-600 px-1.5">•</span> 11:00 A.M.
+                        </p>
+                        <p class="font-garamond italic text-base sm:text-lg text-olive-800 pb-1">
+                            St. John of God Catholic Church, Amrahia
+                        </p>
+                    </div>
+                </section>
+
+                <!-- SECTION 1: ORDER OF CELEBRATION -->
+                <div id="section-mass" class="section-block">
+                    <div class="ornament-line my-6">
+                        <span class="font-serif text-xl sm:text-2xl font-bold text-dustyrose-800 tracking-wider uppercase px-4 bg-dustyrose-100/80 rounded-full border border-dustyrose-300">
+                            Order of Celebration
+                        </span>
+                    </div>
+
+                    <!-- Processional Notes Banner -->
+                    <div class="bg-gradient-to-r from-dustyrose-100/90 via-dustyrose-50 to-onion-100/70 border-l-4 border-dustyrose-600 p-4 rounded-r-lg mb-8 text-sm shadow-sm">
+                        <h4 class="font-sans text-xs uppercase tracking-wider font-bold text-dustyrose-700 mb-1">
+                            Processional Sequence
+                        </h4>
+                        <ol class="grid grid-cols-1 sm:grid-cols-2 gap-2 font-garamond text-base text-olive-900">
+                            <li><strong class="text-dustyrose-700">1.</strong> Entrance of Groom Only</li>
+                            <li><strong class="text-dustyrose-700">2.</strong> Entrance Procession (Priests & Mass Servers)</li>
+                            <li><strong class="text-dustyrose-700">3.</strong> Entrance of Bride & Father</li>
+                            <li><strong class="text-dustyrose-700">4.</strong> Opening Hymn</li>
+                        </ol>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        
+                        <!-- 1. Entrance Rite -->
+                        <div class="bg-gradient-to-b from-white to-dustyrose-50/60 p-5 rounded-lg border border-dustyrose-300 shadow-sm hover:border-dustyrose-400 transition">
+                            <h3 class="font-serif text-lg font-bold text-olive-800 border-b border-dustyrose-300 pb-2 mb-3 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-dustyrose-600 text-cream text-xs flex items-center justify-center font-sans font-semibold">1</span>
+                                Entrance Rite
+                            </h3>
+                            <ul class="space-y-1.5 font-garamond text-base text-olive-900">
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Entrance of the Bridal Party</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Entrance of the Bride and Groom</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Entrance Procession</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Opening Hymn</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Greeting and Introduction by Celebrant</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Opening Prayer</li>
+                            </ul>
+                        </div>
+
+                        <!-- 2. Liturgy of the Word -->
+                        <div class="bg-gradient-to-b from-white to-dustyrose-50/60 p-5 rounded-lg border border-dustyrose-300 shadow-sm hover:border-dustyrose-400 transition">
+                            <h3 class="font-serif text-lg font-bold text-olive-800 border-b border-dustyrose-300 pb-2 mb-3 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-dustyrose-600 text-cream text-xs flex items-center justify-center font-sans font-semibold">2</span>
+                                Liturgy of the Word
+                            </h3>
+                            <ul class="space-y-1.5 font-garamond text-base text-olive-900">
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> First Reading</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Responsorial Psalm</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Second Reading</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Gospel Acclamation</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Gospel Reading</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Homily</li>
+                            </ul>
+                        </div>
+
+                        <!-- 3. Celebration of Matrimony -->
+                        <div class="bg-gradient-to-b from-white to-dustyrose-50/60 p-5 rounded-lg border border-dustyrose-300 shadow-sm hover:border-dustyrose-400 transition">
+                            <h3 class="font-serif text-lg font-bold text-olive-800 border-b border-dustyrose-300 pb-2 mb-3 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-dustyrose-600 text-cream text-xs flex items-center justify-center font-sans font-semibold">3</span>
+                                Celebration of Matrimony
+                            </h3>
+                            <ul class="space-y-1.5 font-garamond text-base text-olive-900">
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Address to the Couple</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Questions Before Consent</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Declaration of Consent & Exchange of Vows</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Blessing & Exchange of Rings</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Nuptial Blessing</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Prayers of the Faithful</li>
+                            </ul>
+                        </div>
+
+                        <!-- 4. Liturgy of the Eucharist -->
+                        <div class="bg-gradient-to-b from-white to-dustyrose-50/60 p-5 rounded-lg border border-dustyrose-300 shadow-sm hover:border-dustyrose-400 transition">
+                            <h3 class="font-serif text-lg font-bold text-olive-800 border-b border-dustyrose-300 pb-2 mb-3 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-dustyrose-600 text-cream text-xs flex items-center justify-center font-sans font-semibold">4</span>
+                                Liturgy of the Eucharist
+                            </h3>
+                            <ul class="space-y-1.5 font-garamond text-base text-olive-900">
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Preparation of the Altar</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Presentation of the Gifts</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Offertory Hymn</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Eucharistic Prayer & The Lord’s Prayer</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Nuptial Blessing & Sign of Peace</li>
+                                <li class="flex items-start"><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Lamb of God, Holy Communion & Thanksgiving</li>
+                            </ul>
+                        </div>
+
+                        <!-- 5. Concluding Rites -->
+                        <div class="bg-gradient-to-b from-white to-dustyrose-50/60 p-5 rounded-lg border border-dustyrose-300 shadow-sm hover:border-dustyrose-400 transition md:col-span-2">
+                            <h3 class="font-serif text-lg font-bold text-olive-800 border-b border-dustyrose-300 pb-2 mb-3 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-dustyrose-600 text-cream text-xs flex items-center justify-center font-sans font-semibold">5</span>
+                                Concluding Rites
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 font-garamond text-base text-olive-900">
+                                <p><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Solemn Blessing of Newly Married Couple</p>
+                                <p><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Words of Appreciation</p>
+                                <p><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Final Prayer & Blessing</p>
+                                <p><span class="text-dustyrose-600 mr-2 font-bold">✦</span> Recessional Hymn</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- OFFICIATING CLERGY SECTION -->
+                    <div class="mt-8 p-6 bg-gradient-to-r from-dustyrose-100/70 via-olive-50 to-dustyrose-100/70 rounded-xl border border-dustyrose-300 text-center shadow-sm">
+                        <h4 class="font-serif text-lg font-bold text-dustyrose-800 tracking-wider uppercase mb-3">
+                            Officiating Clergy
+                        </h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left max-w-2xl mx-auto font-garamond text-base">
+                            <div class="bg-white/90 p-3 rounded border border-dustyrose-300 shadow-xs">
+                                <label class="block text-xs font-sans text-dustyrose-700 font-bold uppercase">Celebrant</label>
+                                <input type="text" value="Rev. Fr. ___________________" class="w-full bg-transparent border-b border-dustyrose-400 text-olive-900 focus:outline-none focus:border-dustyrose-600 py-1 font-serif text-base" />
+                            </div>
+                            <div class="bg-white/90 p-3 rounded border border-dustyrose-300 shadow-xs">
+                                <label class="block text-xs font-sans text-dustyrose-700 font-bold uppercase">Concelebrant(s)</label>
+                                <input type="text" value="Rev. Fr. ___________________" class="w-full bg-transparent border-b border-dustyrose-400 text-olive-900 focus:outline-none focus:border-dustyrose-600 py-1 font-serif text-base" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: ORDER OF PHOTOGRAPHY -->
+                <div id="section-photos" class="section-block mt-10">
+                    <div class="ornament-line my-6">
+                        <span class="font-serif text-xl sm:text-2xl font-bold text-dustyrose-800 tracking-wider uppercase px-4 bg-dustyrose-100/80 rounded-full border border-dustyrose-300">
+                            Order of Photography
+                        </span>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-dustyrose-100/80 via-white to-dustyrose-50 p-6 rounded-xl border border-dustyrose-300 shadow-sm">
+                        <p class="font-sans text-xs text-center text-dustyrose-800 uppercase tracking-widest font-bold mb-6">
+                            Kindly assemble promptly when your group is announced
+                        </p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 font-garamond text-base">
+                            <div class="flex items-center p-2.5 bg-white rounded-lg border border-dustyrose-200 shadow-sm hover:border-dustyrose-400">
+                                <span class="w-7 h-7 rounded-full bg-dustyrose-600 text-cream text-xs font-bold flex items-center justify-center mr-3 font-sans shrink-0">1</span>
+                                <span class="font-semibold text-olive-900">Officiating Ministers</span>
+                            </div>
+                            <div class="flex items-center p-2.5 bg-white rounded-lg border border-dustyrose-200 shadow-sm hover:border-dustyrose-400">
+                                <span class="w-7 h-7 rounded-full bg-dustyrose-600 text-cream text-xs font-bold flex items-center justify-center mr-3 font-sans shrink-0">2</span>
+                                <span class="font-semibold text-olive-900">Marriage Counsellors</span>
+                            </div>
+                            <div class="flex items-center p-2.5 bg-white rounded-lg border border-dustyrose-200 shadow-sm hover:border-dustyrose-400">
+                                <span class="w-7 h-7 rounded-full bg-dustyrose-600 text-cream text-xs font-bold flex items-center justify-center mr-3 font-sans shrink-0">3</span>
+                                <span class="font-semibold text-olive-900">Groom Family Only</span>
+                            </div>
+                            <div class="flex items-center p-2.5 bg-white rounded-lg border border-dustyrose-200 shadow-sm hover:border-dustyrose-400">
+                                <span class="w-7 h-7 rounded-full bg-dustyrose-600 text-cream text-xs font-bold flex items-center justify-center mr-3 font-sans shrink-0">4</span>
+                                <span class="font-semibold text-olive-900">Bride Family Only</span>
+                            </div>
+                            <div class="flex items-center p-2.5 bg-white rounded-lg border border-dustyrose-200 shadow-sm hover:border-dustyrose-400">
+                                <span class="w-7 h-7 rounded-full bg-dustyrose-600 text-cream text-xs font-bold flex items-center justify-center mr-3 font-sans shrink-0">5</span>
+                                <span class="font-semibold text-olive-900">Both Bride & Groom Families</span>
+                            </div>
+                            <div class="flex items-center p-2.5 bg-white rounded-lg border border-dustyrose-200 shadow-sm hover:border-dustyrose-400">
+                                <span class="w-7 h-7 rounded-full bg-dustyrose-600 text-cream text-xs font-bold flex items-center justify-center mr-3 font-sans shrink-0">6</span>
+                                <span class="font-semibold text-olive-900">Bride & Groom Parents</span>
+                            </div>
+                            <div class="flex items-center p-2.5 bg-white rounded-lg border border-dustyrose-200 shadow-sm hover:border-dustyrose-400">
+                                <span class="w-7 h-7 rounded-full bg-dustyrose-600 text-cream text-xs font-bold flex items-center justify-center mr-3 font-sans shrink-0">7</span>
+                                <span class="font-semibold text-olive-900">Bride, Groom & Choir</span>
+                            </div>
+                            <div class="flex items-center p-2.5 bg-white rounded-lg border border-dustyrose-200 shadow-sm hover:border-dustyrose-400">
+                                <span class="w-7 h-7 rounded-full bg-dustyrose-600 text-cream text-xs font-bold flex items-center justify-center mr-3 font-sans shrink-0">8</span>
+                                <span class="font-semibold text-olive-900">Friends of the Bride</span>
+                            </div>
+                            <div class="flex items-center p-2.5 bg-white rounded-lg border border-dustyrose-200 shadow-sm hover:border-dustyrose-400">
+                                <span class="w-7 h-7 rounded-full bg-dustyrose-600 text-cream text-xs font-bold flex items-center justify-center mr-3 font-sans shrink-0">9</span>
+                                <span class="font-semibold text-olive-900">Friends of the Groom</span>
+                            </div>
+                            <div class="flex items-center p-2.5 bg-white rounded-lg border border-dustyrose-200 shadow-sm col-span-1 sm:col-span-2 hover:border-dustyrose-400">
+                                <span class="w-7 h-7 rounded-full bg-dustyrose-600 text-cream text-xs font-bold flex items-center justify-center mr-3 font-sans shrink-0">10</span>
+                                <span class="font-semibold text-olive-900">Bride & Staff of Parliamentary Service & ServeAir</span>
+                            </div>
+                            <div class="flex items-center p-2.5 bg-white rounded-lg border border-dustyrose-200 shadow-sm hover:border-dustyrose-400">
+                                <span class="w-7 h-7 rounded-full bg-dustyrose-600 text-cream text-xs font-bold flex items-center justify-center mr-3 font-sans shrink-0">11</span>
+                                <span class="font-semibold text-olive-900">Groom & Staff</span>
+                            </div>
+                            <div class="flex items-center p-2.5 bg-white rounded-lg border border-dustyrose-200 shadow-sm hover:border-dustyrose-400">
+                                <span class="w-7 h-7 rounded-full bg-dustyrose-600 text-cream text-xs font-bold flex items-center justify-center mr-3 font-sans shrink-0">12</span>
+                                <span class="font-semibold text-olive-900">Exclusives (Bride & Groom)</span>
+                            </div>
+                            <div class="flex items-center p-2.5 bg-white rounded-lg border border-dustyrose-200 shadow-sm hover:border-dustyrose-400">
+                                <span class="w-7 h-7 rounded-full bg-dustyrose-600 text-cream text-xs font-bold flex items-center justify-center mr-3 font-sans shrink-0">13</span>
+                                <span class="font-semibold text-olive-900">Bride Only</span>
+                            </div>
+                            <div class="flex items-center p-2.5 bg-white rounded-lg border border-dustyrose-200 shadow-sm hover:border-dustyrose-400">
+                                <span class="w-7 h-7 rounded-full bg-dustyrose-600 text-cream text-xs font-bold flex items-center justify-center mr-3 font-sans shrink-0">14</span>
+                                <span class="font-semibold text-olive-900">Groom Only</span>
+                            </div>
+                            <div class="flex items-center p-2.5 bg-white rounded-lg border border-dustyrose-200 shadow-sm hover:border-dustyrose-400">
+                                <span class="w-7 h-7 rounded-full bg-dustyrose-600 text-cream text-xs font-bold flex items-center justify-center mr-3 font-sans shrink-0">15</span>
+                                <span class="font-semibold text-olive-900">Others & General Guests</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 3: RECEPTION PROGRAMME -->
+                <div id="section-reception" class="section-block mt-10">
+                    <div class="ornament-line my-6">
+                        <span class="font-serif text-xl sm:text-2xl font-bold text-dustyrose-800 tracking-wider uppercase px-4 bg-dustyrose-100/80 rounded-full border border-dustyrose-300">
+                            Wedding Reception
+                        </span>
+                    </div>
+
+                    <div class="bg-gradient-to-b from-dustyrose-50/90 via-white to-dustyrose-100/40 p-6 sm:p-8 rounded-xl border border-dustyrose-300 text-center relative shadow-sm">
+                        <p class="font-serif text-lg font-bold text-dustyrose-800 mb-1">
+                            Venue: Princess Guest House
+                        </p>
+                        <p class="font-sans text-xs uppercase tracking-widest text-dustyrose-600 font-bold mb-6">
+                            Master of Ceremonies (MC) Presiding
+                        </p>
+
+                        <div class="max-w-xl mx-auto space-y-3 font-garamond text-base sm:text-lg text-left">
+                            <div class="flex items-center justify-between p-2.5 border-b border-dustyrose-200 hover:bg-dustyrose-50/50 rounded transition">
+                                <span class="text-olive-900 font-medium">1. Opening Prayers</span>
+                                <span class="text-xs text-dustyrose-600 font-sans uppercase font-semibold">Invocation</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 border-b border-dustyrose-200 hover:bg-dustyrose-50/50 rounded transition">
+                                <span class="text-olive-900 font-medium">2. Introduction of the Chairman & Response</span>
+                                <span class="text-xs text-dustyrose-600 font-sans uppercase font-semibold">Welcome</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 border-b border-dustyrose-200 hover:bg-dustyrose-50/50 rounded transition">
+                                <span class="text-olive-900 font-medium">3. Musical Interlude</span>
+                                <span class="text-xs text-dustyrose-600 font-sans uppercase font-semibold">Music</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 border-b border-dustyrose-300 bg-dustyrose-100/90 rounded-lg shadow-xs">
+                                <span class="text-dustyrose-900 font-bold">4. Grand Entrance of Bride & Groom</span>
+                                <span class="text-xs text-dustyrose-700 font-sans uppercase font-bold bg-cream px-2 py-0.5 rounded border border-dustyrose-300">Highlight</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 border-b border-dustyrose-200 hover:bg-dustyrose-50/50 rounded transition">
+                                <span class="text-olive-900 font-medium">5. Blessing of the Food & Buffet Service</span>
+                                <span class="text-xs text-dustyrose-600 font-sans uppercase font-semibold">Dining</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 border-b border-dustyrose-200 hover:bg-dustyrose-50/50 rounded transition">
+                                <span class="text-olive-900 font-medium">6. Musical Interlude</span>
+                                <span class="text-xs text-dustyrose-600 font-sans uppercase font-semibold">Music</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 border-b border-dustyrose-200 hover:bg-dustyrose-50/50 rounded transition">
+                                <span class="text-olive-900 font-medium">7. Cutting of the Wedding Cake</span>
+                                <span class="text-xs text-dustyrose-600 font-sans uppercase font-semibold">Ceremony</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 border-b border-dustyrose-200 hover:bg-dustyrose-50/50 rounded transition">
+                                <span class="text-olive-900 font-medium">8. Popping of Champagne & Toast</span>
+                                <span class="text-xs text-dustyrose-600 font-sans uppercase font-semibold">Celebration</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 border-b border-dustyrose-200 hover:bg-dustyrose-50/50 rounded transition">
+                                <span class="text-olive-900 font-medium">9. Chairman’s Closing Remarks</span>
+                                <span class="text-xs text-dustyrose-600 font-sans uppercase font-semibold">Address</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 border-b border-dustyrose-200 hover:bg-dustyrose-50/50 rounded transition">
+                                <span class="text-olive-900 font-medium">10. Vote of Thanks</span>
+                                <span class="text-xs text-dustyrose-600 font-sans uppercase font-semibold">Appreciation</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 border-b border-dustyrose-200 hover:bg-dustyrose-50/50 rounded transition">
+                                <span class="text-olive-900 font-medium">11. Closing Prayers & Social Hour</span>
+                                <span class="text-xs text-dustyrose-600 font-sans uppercase font-semibold">Benediction</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACKNOWLEDGEMENT & SCRIPTURE SECTION -->
+                <footer class="mt-12 pt-8 border-t-2 border-dustyrose-300 text-center">
+                    <h3 class="font-serif text-lg font-bold text-dustyrose-800 tracking-wider uppercase mb-3">
+                        Acknowledgement
+                    </h3>
+                    
+                    <p class="font-garamond text-base sm:text-lg text-olive-900 max-w-2xl mx-auto leading-relaxed">
+                        The families of <strong class="text-dustyrose-700">Bruno Kanyiri</strong> and <strong class="text-dustyrose-700">Antoinette Kanubala</strong> warmly thank you for honouring their invitation and for joining them as they celebrate the beautiful Sacrament of Holy Matrimony.
+                    </p>
+
+                    <p class="font-garamond italic text-base text-olive-700 mt-2">
+                        Your presence, prayers, love and support mean so much to the couple and their families.
+                    </p>
+
+                    <!-- Scripture Quote Frame -->
+                    <div class="my-6 p-4 max-w-lg mx-auto bg-dustyrose-700 text-cream rounded-xl border-2 border-gold-400 shadow-md">
+                        <p class="font-serif italic text-base sm:text-lg text-dustyrose-100">
+                            “Therefore what God has joined together, no one must separate.”
+                        </p>
+                        <p class="font-sans text-xs text-dustyrose-200 mt-1 uppercase tracking-widest font-semibold">
+                            — Matthew 19:6
+                        </p>
+                    </div>
+
+                    <p class="font-script text-3xl sm:text-4xl text-dustyrose-700 mt-4">
+                        May God bless you abundantly for celebrating this special day with us.
+                    </p>
+                </footer>
+
+                <!-- Bottom Botanical SVG Decorative Accent -->
+                <div class="mt-8 flex justify-center opacity-85">
+                    <svg width="140" height="36" viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M70 18 C 45 6, 25 30, 0 18" stroke="#b15b5f" stroke-width="2" fill="none"/>
+                        <path d="M70 18 C 95 6, 115 30, 140 18" stroke="#b15b5f" stroke-width="2" fill="none"/>
+                        <circle cx="70" cy="18" r="5" fill="#dfb76c"/>
+                        <circle cx="45" cy="14" r="4" fill="#d99497"/>
+                        <circle cx="95" cy="14" r="4" fill="#d99497"/>
+                        <circle cx="25" cy="22" r="3" fill="#3d543a"/>
+                        <circle cx="115" cy="22" r="3" fill="#3d543a"/>
+                    </svg>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function switchTab(tabName) {
+            // Reset active buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('tab-' + tabName).classList.add('active');
+
+            const massSec = document.getElementById('section-mass');
+            const photosSec = document.getElementById('section-photos');
+            const receptionSec = document.getElementById('section-reception');
+
+            if (tabName === 'full') {
+                massSec.style.display = 'block';
+                photosSec.style.display = 'block';
+                receptionSec.style.display = 'block';
+            } else if (tabName === 'mass') {
+                massSec.style.display = 'block';
+                photosSec.style.display = 'none';
+                receptionSec.style.display = 'none';
+            } else if (tabName === 'photos') {
+                massSec.style.display = 'none';
+                photosSec.style.display = 'block';
+                receptionSec.style.display = 'none';
+            } else if (tabName === 'reception') {
+                massSec.style.display = 'none';
+                photosSec.style.display = 'none';
+                receptionSec.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
