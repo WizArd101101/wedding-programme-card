@@ -1,0 +1,45 @@
+/* Main Body Styles */
+body {
+    background-color: #121811;
+    color: #2d3f2b;
+    font-family: 'Cormorant Garamond', serif;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* Gold Leaf Border Decoration */
+.gold-leaf-border {
+    border: 2px solid #dfb76c;
+    outline: 1px solid #c89d47;
+    outline-offset: -6px;
+}
+
+/* Card Shadow Effect */
+.card-shadow {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* Active Tab Button Styles */
+.tab-btn.active {
+    background-color: #b15b5f;
+    color: #FAF7F2;
+    border-color: #dfb76c;
+    box-shadow: 0 4px 12px rgba(177, 91, 95, 0.35);
+}
+
+/* Print Styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        padding: 0 !important;
+    }
+    
+    .print-page {
+        box-shadow: none !important;
+        margin: 0 auto !important;
+    }
+}
